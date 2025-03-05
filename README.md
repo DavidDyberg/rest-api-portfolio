@@ -6,7 +6,7 @@ This API manages information for my portfolio, including projects, skills and in
 
 Below are the structures for the resources handled by the API.
 
-### Project Model
+### Projects Model
 
 | Field         | Type          | Description                      |
 | ------------- | ------------- | -------------------------------- |
@@ -62,7 +62,7 @@ These endpoints return JSON representations of the resources.
   "liveDemo": "https://imbd-clone.vercel.app",
   "image": "https://example.com/project-image.jpg",
   "createdAt": "2025-03-04T12:00:00Z",
-  "uddatedAt": "2025-03-04T12:00:00Z"
+  "updatedAt": "2025-03-04T12:00:00Z"
 }
 ```
 
