@@ -16,6 +16,8 @@ let mockUser = [
       github: "https://github.com/daviddyberg",
       linkedin: "https://linkedin.com/in/daviddyberg",
     },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
 ];
 
@@ -23,6 +25,7 @@ export const getUser = (req: Request, res: Response) => {
   res.json(mockUser);
 };
 
-export const createUser = (req: Request, res: Response) => {
-  const newUser = {};
+export const updateUser = (req: Request, res: Response) => {
+  mockUser[0] = { ...mockUser[0], ...req.body, updatedAt: new Date() };
+  res.json({ message: "User updated successfully", user: mockUser[0] });
 };
