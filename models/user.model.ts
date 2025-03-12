@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { InferSchemaType } from "mongoose";
 
 const UserSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
@@ -13,4 +13,7 @@ const UserSchema = new mongoose.Schema({
   phoneNumber: { type: String },
 });
 
-export const User = mongoose.model("User", UserSchema);
+export const User = mongoose.model<InferSchemaType<typeof UserSchema>>(
+  "User",
+  UserSchema
+);

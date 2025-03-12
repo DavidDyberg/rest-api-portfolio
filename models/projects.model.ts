@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { InferSchemaType } from "mongoose";
 
 const ProjectSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -11,4 +11,7 @@ const ProjectSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-export const Project = mongoose.model("Project", ProjectSchema);
+export const Project = mongoose.model<InferSchemaType<typeof ProjectSchema>>(
+  "Project",
+  ProjectSchema
+);
