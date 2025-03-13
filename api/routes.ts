@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getUser, updateUser } from "../controllers/userController";
+import { createUser, getUser, updateUser } from "../controllers/userController";
 import {
   createProject,
   deleteProject,
@@ -11,6 +11,7 @@ import {
 export const router = Router();
 
 router.get("/about", getUser);
+router.post("/about", createUser);
 router.put("/about", updateUser);
 
 router.get("/projects", getAllProjects);

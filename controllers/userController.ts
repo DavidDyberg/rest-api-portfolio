@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { User } from "../models/user.model";
 
 let mockUser = [
   {
@@ -23,6 +24,41 @@ let mockUser = [
 
 export const getUser = (req: Request, res: Response) => {
   res.json(mockUser);
+};
+
+export const createUser = async (req: Request, res: Response) => {
+  try {
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      age,
+      bio,
+      profileImage,
+      skills,
+      socials,
+      phoneNumber,
+    } = req.body;
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password,
+      age,
+      bio,
+      profileImage,
+      skills,
+      socials,
+      phoneNumber,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    await newUser.save();
+    res.status(201).json({ message: "User created" });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 export const updateUser = (req: Request, res: Response) => {
