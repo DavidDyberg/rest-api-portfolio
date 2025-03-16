@@ -1,4 +1,5 @@
-import { request, Request, response, Response } from "express";
+import { Request, Response } from "express";
+import { v4 as uuidv4 } from "uuid";
 
 let mockProjects = [
   {
@@ -38,7 +39,7 @@ export const getProjectById = (req: Request, res: Response) => {
 
 export const createProject = (req: Request, res: Response) => {
   const newProject = {
-    id: mockProjects.length + 1,
+    id: uuidv4(),
     ...req.body,
     createdAt: new Date(),
     updatedAt: new Date(),
