@@ -10,7 +10,7 @@ Below are the structures for the resources handled by the API.
 
 | Field         | Type          | Description                      |
 | ------------- | ------------- | -------------------------------- |
-| `_id`          | Number        | Project ID                       |
+| `_id`         | Number        | Project ID                       |
 | `title`       | String        | Project title (required)         |
 | `description` | String        | Project description (required)   |
 | `techStack`   | Array[String] | Technologies used (optional)     |
@@ -26,13 +26,14 @@ Below are the structures for the resources handled by the API.
 
 | Field          | Type            | Description                 |
 | -------------- | --------------- | --------------------------- |
-| `_id`           | Number          | Primary key                 |
+| `_id`          | Number          | Primary key                 |
 | `firstName`    | String          | My first name               |
 | `lastName`     | String          | My last name                |
 | `email`        | String          | My email                    |
 | `password`     | String (hashed) | My password                 |
 | `age`          | Number          | My age                      |
 | `bio`          | String          | My biography                |
+| `phoneNumber`  | String          | My phone number             |
 | `profileImage` | String          | URL to the my profile image |
 | `skills`       | Array[String]   | List of my skills           |
 | `socials`      | Array[Object]   | My social media links       |
@@ -77,6 +78,7 @@ These endpoints return JSON representations of the resources.
   "password": "password",
   "age": 23,
   "bio": "Fullstack Developer passionate about web technologies.",
+  "phoneNumber": "+4673123456",
   "profileImage": "https://example.com/profile-image.jpg",
   "skills": ["JavaScript", "React", "Tailwind CSS", "PHP", "Laravel"],
   "socials": {
