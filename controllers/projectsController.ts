@@ -1,78 +1,83 @@
 import { Request, Response } from "express";
-import { v4 as uuidv4 } from "uuid";
+import { Project } from "../models/projects.model";
 
-let mockProjects = [
-  {
-    id: 1,
-    title: "IMDB Clone",
-    description: "A website for managing your favorite movies",
-    techStack: ["PHP", "Laravel", "MariaDB"],
-    githubLink: "https://github.com/example",
-    liveDemo: "example.vercel.app",
-    image: "",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    id: 2,
-    title: "Todo list",
-    description: "A website for managing your todos",
-    techStack: ["PHP", "MariaDB"],
-    githubLink: "https://github.com/example",
-    liveDemo: "example.vercel.app",
-    image: "",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-];
-
-export const getAllProjects = (req: Request, res: Response) => {
-  res.json(mockProjects);
-};
-
-export const getProjectById = (req: Request, res: Response) => {
-  const project = mockProjects.find(
-    (project) => project.id === parseInt(req.params.id)
-  );
-  res.json(project);
-};
-
-export const createProject = (req: Request, res: Response) => {
-  const newProject = {
-    id: uuidv4(),
-    ...req.body,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
-  mockProjects.push(newProject);
-  res.status(201).json({ message: "Project created successfully" });
-};
-
-export const updateProject = (req: Request, res: Response) => {
-  const projectId = parseInt(req.params.id);
-  const projectIndex = mockProjects.findIndex(
-    (project) => project.id === projectId
-  );
-
-  if (projectIndex === -1) {
-    res.status(404).json({ message: "Project not found" });
+export const getAllProjects = async (req: Request, res: Response) => {
+  try {
+    const projects = await Project.find({});
+    res.json(projects);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An unknown error has occurred" });
+    }
   }
-
-  const updatedProject = {
-    ...mockProjects[projectIndex],
-    ...req.body,
-    updatedAt: new Date(),
-  };
-
-  mockProjects[projectIndex] = updatedProject;
-  res
-    .status(200)
-    .json({ message: "Project updated successfully", project: updatedProject });
 };
 
-export const deleteProject = (req: Request, res: Response) => {
-  mockProjects = mockProjects.filter(
-    (project) => project.id != parseInt(req.params.id)
-  );
-  res.json({ message: "Project was deleted successfully " });
+export const getProjectById = async (req: Request, res: Response) => {
+  try {
+    const project = await Project.findById(req.params.id);
+    res.json(project);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An unknown error has occurred" });
+    }
+  }
+};
+
+export const createProject = async (req: Request, res: Response) => {
+  try {
+    const project = await Project.create(req.body);
+    res
+      .status(201)
+      .json({ message: "New project created successfully", project });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An unknown error has occurred" });
+    }
+  }
+};
+
+export const updateProject = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const project = await Project.findByIdAndUpdate(id, req.body);
+
+    if (!project) {
+      res.status(404).json({ message: "Project not found" });
+    }
+
+    const updatedProject = await Project.findById(id);
+    res.status(200).json({
+      message: "The project was updated successfully",
+      updatedProject,
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An unknown error has occurred" });
+    }
+  }
+};
+
+export const deleteProject = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const project = await Project.findByIdAndDelete(id);
+    if (!project) {
+      res.status(404).json({ message: "Project not found" });
+    }
+    res.status(200).json({ message: "Project was deleted successfully" });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An unknown error has occurred" });
+    }
+  }
 };
