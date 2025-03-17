@@ -1,67 +1,50 @@
 import { Request, Response } from "express";
 import { User } from "../models/user.model";
 
-let mockUser = [
-  {
-    id: 1,
-    firstName: "David",
-    lastName: "Dyberg",
-    email: "david@example.com",
-    password: "$2b$10$eW5U7nH8PqZ6Kl.kp3H7KO6u2qIX.4m06zcdzWZFYumXxF5jP0dFm",
-    phoneNumber: "+46701234567",
-    age: 23,
-    bio: "Fullstack Developer passionate about web technologies.",
-    profileImage: "",
-    skills: ["JavaScript", "React", "Tailwind CSS", "Node.js", "MongoDB"],
-    socials: {
-      github: "https://github.com/daviddyberg",
-      linkedin: "https://linkedin.com/in/daviddyberg",
-    },
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-];
-
-export const getUser = (req: Request, res: Response) => {
-  res.json(mockUser);
+export const getUser = async (req: Request, res: Response) => {
+  try {
+    const user = await User.find({});
+    res.json(user);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An unknown error has occurred" });
+    }
+  }
 };
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const {
-      firstName,
-      lastName,
-      email,
-      password,
-      age,
-      bio,
-      profileImage,
-      skills,
-      socials,
-      phoneNumber,
-    } = req.body;
-    const newUser = new User({
-      firstName,
-      lastName,
-      email,
-      password,
-      age,
-      bio,
-      profileImage,
-      skills,
-      socials,
-      phoneNumber,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-    await newUser.save();
-    res.status(201).json({ message: "User created" });
-  } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    const user = await User.create(req.body);
+    res.status(201).json({ message: "User created successfully", user });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An unknown error has occurred" });
+    }
   }
 };
 
-export const updateUser = (req: Request, res: Response) => {
-  mockUser[0] = { ...mockUser[0], ...req.body, updatedAt: new Date() };
-  res.json({ message: "User updated successfully", user: mockUser[0] });
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findByIdAndUpdate(id, req.body);
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+    }
+
+    const updatedUserInformation = await User.findById(id);
+    res
+      .status(201)
+      .json({ message: "User updated successfully", updatedUserInformation });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An unknown error has occurred" });
+    }
+  }
 };

@@ -9,4 +9,4 @@ export const userRouter = Router();
 
 userRouter.get("/about", getUser);
 userRouter.post("/about", createUser);
-userRouter.put("/about", updateUser);
+userRouter.put("/about/:id", updateUser);
