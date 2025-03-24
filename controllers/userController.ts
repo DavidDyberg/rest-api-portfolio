@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { User } from "../models/userModel";
+import bcrypt from "bcrypt";
 
 export const getUser = async (req: Request, res: Response) => {
   try {
@@ -16,8 +17,38 @@ export const getUser = async (req: Request, res: Response) => {
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const user = await User.create(req.body);
-    res.status(201).json({ message: "User created successfully", user });
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      age,
+      bio,
+      profileImage,
+      skills,
+      socials,
+      phoneNumber,
+    } = req.body;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+      age,
+      bio,
+      profileImage,
+      skills,
+      socials,
+      phoneNumber,
+    });
+
+    await newUser.save();
+    res
+      .status(201)
+      .json({ message: "User created successfully", user: newUser });
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ message: error.message });
