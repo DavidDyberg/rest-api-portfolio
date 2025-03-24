@@ -4,9 +4,10 @@ import {
   getUser,
   updateUser,
 } from "../../controllers/userController";
+import { authMiddleware } from "../../middleware/authMiddleware";
 
 export const userRouter = Router();
 
 userRouter.get("/about", getUser);
-userRouter.post("/about", createUser);
-userRouter.put("/about/:id", updateUser);
+userRouter.post("/about", authMiddleware, createUser);
+userRouter.put("/about/:id", authMiddleware, updateUser);
