@@ -14,13 +14,13 @@ export const login = async (req: Request, res: Response) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      res.status(400).json({ message: "Invalid email or passwordddddd." });
+      res.status(400).json({ message: "Invalid email." });
       return;
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      res.status(400).json({ message: "Invalid email or password." });
+      res.status(400).json({ message: "Invalid password." });
       return;
     }
 
@@ -29,6 +29,8 @@ export const login = async (req: Request, res: Response) => {
     });
     res.json({ token, email: user.email });
   } catch (error) {
-    res.status(500).json({ message: "An error occurred during login." });
+    if (error instanceof Error) {
+      res.status(500).json({ message: "An error occurred during login." });
+    }
   }
 };
