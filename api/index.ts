@@ -12,8 +12,12 @@ connectDB();
 const app: Express = express();
 const PORT: string | number = process.env.PORT || 8000;
 
+app.use(
+  cors({
+    credentials: true,
+  })
+);
 app.use(express.json());
-app.use(cors());
 app.use("/api", userRouter);
 app.use("/api", projectRouter);
 app.use("/auth", authRouter);
