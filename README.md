@@ -89,13 +89,13 @@ curl -X POST -H "Content-Type: application/json" -d '{"email": "email", "passwor
 ### Fetch all projects:
 
 ```
-curl https://david-dyberg-portfolio-api.vercel.app
+curl https://david-dyberg-portfolio-api.vercel.app/api/projects
 ```
 
 ### Fetch a single project by id:
 
 ```
-curl https://david-dyberg-portfolio-api.vercel.app/YOUR_PROJECT_ID
+curl https://david-dyberg-portfolio-api.vercel.app/api/projects/YOUR_PROJECT_ID
 ```
 
 ### Create a project (token required)
@@ -113,13 +113,13 @@ curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_
 curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
   "title": "Updated Project Title",
   "description": "This is an updated description"
-}' https://david-dyberg-portfolio-api.vercel.app/YOUR_PROJECT_ID
+}' https://david-dyberg-portfolio-api.vercel.app/api/projects/YOUR_PROJECT_ID
 ```
 
 ### Delete a project by id (token required)
 
 ```
-curl -X DELETE -H "Authorization: Bearer YOUR_BEARER_TOKEN" https://david-dyberg-portfolio-api.vercel.app/YOUR_PROJECT_ID
+curl -X DELETE -H "Authorization: Bearer YOUR_BEARER_TOKEN" https://david-dyberg-portfolio-api.vercel.app/api/projects/YOUR_PROJECT_ID
 ```
 
 ## About
