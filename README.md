@@ -117,6 +117,82 @@ Each resource supports different HTTP methods depending on access permissions:
 ✅ **Public** → Anyone can access  
 ❌ **Restricted** → Only the API owner/admin can modify data
 
+# Curl examples deployed version
+
+## Login:
+
+### This will generate an access token
+
+```
+curl -X POST -H "Content-Type: application/json" -d '{"email": "email", "password": "password"}' https://david-dyberg-portfolio-api.vercel.app/auth/login
+```
+
+## Projects:
+
+### Fetch all projects:
+
+```
+curl https://david-dyberg-portfolio-api.vercel.app/api/projects
+```
+
+### Fetch a single project by id:
+
+```
+curl https://david-dyberg-portfolio-api.vercel.app/api/projects/YOUR_PROJECT_ID
+```
+
+### Create a project (token required)
+
+```
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
+  "title": "Your title",
+  "description": "Your description"
+}' https://david-dyberg-portfolio-api.vercel.app/api/projects
+```
+
+### Update a project by id (token required)
+
+```
+curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
+  "title": "Updated Project Title",
+  "description": "This is an updated description"
+}' https://david-dyberg-portfolio-api.vercel.app/api/projects/YOUR_PROJECT_ID
+```
+
+### Delete a project by id (token required)
+
+```
+curl -X DELETE -H "Authorization: Bearer YOUR_BEARER_TOKEN" https://david-dyberg-portfolio-api.vercel.app/api/projects/YOUR_PROJECT_ID
+```
+
+## About
+
+### Fetch information about me
+
+```
+curl https://david-dyberg-portfolio-api.vercel.app/api/about
+```
+
+### Update information about me (token required)
+
+```
+curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
+  "firstName": "Updated name",
+  "lastName": "Updated lastname"
+}' https://david-dyberg-portfolio-api.vercel.app/api/about/USER_ID
+```
+
+### Create new profile
+
+```
+curl -X POST -H "Content-Type: application/json" -d '{
+  "firstName": "Name",
+  "lastName": "Lastname",
+  "email": "email",
+  "password": "password"
+}' https://david-dyberg-portfolio-api.vercel.app/api/about/
+```
+
 # Curl examples locally
 
 ## Login:
@@ -191,80 +267,4 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "email": "email",
   "password": "password"
 }' http://localhost:4000/api/about/
-```
-
-# Curl examples development
-
-## Login:
-
-### This will generate an access token
-
-```
-curl -X POST -H "Content-Type: application/json" -d '{"email": "email", "password": "password"}' https://david-dyberg-portfolio-api.vercel.app/auth/login
-```
-
-## Projects:
-
-### Fetch all projects:
-
-```
-curl https://david-dyberg-portfolio-api.vercel.app/api/projects
-```
-
-### Fetch a single project by id:
-
-```
-curl https://david-dyberg-portfolio-api.vercel.app/api/projects/YOUR_PROJECT_ID
-```
-
-### Create a project (token required)
-
-```
-curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
-  "title": "Your title",
-  "description": "Your description"
-}' https://david-dyberg-portfolio-api.vercel.app/api/projects
-```
-
-### Update a project by id (token required)
-
-```
-curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
-  "title": "Updated Project Title",
-  "description": "This is an updated description"
-}' https://david-dyberg-portfolio-api.vercel.app/api/projects/YOUR_PROJECT_ID
-```
-
-### Delete a project by id (token required)
-
-```
-curl -X DELETE -H "Authorization: Bearer YOUR_BEARER_TOKEN" https://david-dyberg-portfolio-api.vercel.app/api/projects/YOUR_PROJECT_ID
-```
-
-## About
-
-### Fetch information about me
-
-```
-curl https://david-dyberg-portfolio-api.vercel.app/api/about
-```
-
-### Update information about me (token required)
-
-```
-curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
-  "firstName": "Updated name",
-  "lastName": "Updated lastname"
-}' https://david-dyberg-portfolio-api.vercel.app/api/about/USER_ID
-```
-
-### Create new profile
-
-```
-curl -X POST -H "Content-Type: application/json" -d '{
-  "firstName": "Name",
-  "lastName": "Lastname",
-  "email": "email",
-  "password": "password"
-}' https://david-dyberg-portfolio-api.vercel.app/api/about/
 ```
