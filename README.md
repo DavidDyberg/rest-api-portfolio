@@ -42,10 +42,11 @@ Below are the structures for the resources handled by the API.
 
 The API follows RESTful principles and uses the following URI structure:
 
-| Resource     | URI             | Description                  |
-| ------------ | --------------- | ---------------------------- |
-| **Projects** | `/api/projects` | Manages portfolio projects   |
-| **About**    | `/api/about`    | Manages information about me |
+| Resource     | URI             | Description                                           |
+| ------------ | --------------- | ----------------------------------------------------- |
+| **Projects** | `/api/projects` | Manages portfolio projects                            |
+| **About**    | `/api/about`    | Manages information about me                          |
+| **Login**    | `/auth/login`   | For me to login to be able to perform CRUD operations |
 
 ## 3. Resource Representations
 
@@ -109,8 +110,14 @@ Each resource supports different HTTP methods depending on access permissions:
 | Method | Endpoint Example | Description                  | Access Control |
 | ------ | ---------------- | ---------------------------- | -------------- |
 | `GET`  | `/api/about`     | Retrieve my personal details | ✅ Public      |
-| `POST` | `/api/about`     | Create a user                | ❌ Restricted  |
+| `POST` | `/api/about`     | Create a profile             | ❌ Restricted  |
 | `PUT`  | `/api/about`     | Update personal details      | ❌ Restricted  |
+
+### Login:
+
+| Method | Endpoint Example | Description                                                            | Access Control |
+| ------ | ---------------- | ---------------------------------------------------------------------- | -------------- |
+| `POST` | `/auth/login`    | This endpoint is for myself so I can login and perform CRUD operations | ✅ Public      |
 
 ---
 
@@ -122,6 +129,8 @@ Each resource supports different HTTP methods depending on access permissions:
 ## Login:
 
 ### This will generate an access token
+
+I have a mockUser with email=email and password=password. Use theese credentials to get an acces token
 
 ```
 curl -X POST -H "Content-Type: application/json" -d '{"email": "email", "password": "password"}' https://david-dyberg-portfolio-api.vercel.app/auth/login
@@ -182,10 +191,10 @@ curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_A
 }' https://david-dyberg-portfolio-api.vercel.app/api/about/USER_ID
 ```
 
-### Create new profile
+### Create new profile (token required)
 
 ```
-curl -X POST -H "Content-Type: application/json" -d '{
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
   "firstName": "Name",
   "lastName": "Lastname",
   "email": "email",
@@ -198,6 +207,8 @@ curl -X POST -H "Content-Type: application/json" -d '{
 ## Login:
 
 ### This will generate an access token
+
+I have a mockUser with email=email and password=password. Use theese credentials to get an acces token
 
 ```
 curl -X POST -H "Content-Type: application/json" -d '{"email": "email", "password": "password"}' http://localhost:4000/auth/login
@@ -258,10 +269,10 @@ curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_A
 }' http://localhost:4000/api/about/USER_ID
 ```
 
-### Create new profile
+### Create new profile (token required)
 
 ```
-curl -X POST -H "Content-Type: application/json" -d '{
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
   "firstName": "Name",
   "lastName": "Lastname",
   "email": "email",
