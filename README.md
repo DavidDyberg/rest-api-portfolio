@@ -1,3 +1,155 @@
+# Curl examples locally
+
+## Login:
+
+### This will generate an access token
+
+```
+curl -X POST -H "Content-Type: application/json" -d '{"email": "email", "password": "password"}' http://localhost:4000/auth/login
+```
+
+## Projects:
+
+### Fetch all projects:
+
+```
+curl http://localhost:4000/api/projects
+```
+
+### Fetch a single project by id:
+
+```
+curl http://localhost:4000/api/projects/YOUR_PROJECT_ID
+```
+
+### Create a project (token required)
+
+```
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
+  "title": "Your title",
+  "description": "Your description"
+}' http://localhost:4000/api/projects
+```
+
+### Update a project by id (token required)
+
+```
+curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
+  "title": "Updated Project Title",
+  "description": "This is an updated description"
+}' http://localhost:4000/api/projects/YOUR_PROJECT_ID
+```
+
+### Delete a project by id (token required)
+
+```
+curl -X DELETE -H "Authorization: Bearer YOUR_BEARER_TOKEN" http://localhost:4000/api/projects/YOUR_PROJECT_ID
+```
+
+## About
+
+### Fetch information about me
+
+```
+curl http://localhost:4000/api/about
+```
+
+### Update information about me (token required)
+
+```
+curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
+  "firstName": "Updated name",
+  "lastName": "Updated lastname"
+}' http://localhost:4000/api/about/USER_ID
+```
+
+### Create new profile
+
+```
+curl -X POST -H "Content-Type: application/json" -d '{
+  "firstName": "Name",
+  "lastName": "Lastname",
+  "email": "email",
+  "password": "password"
+}' http://localhost:4000/api/about/
+```
+
+# Curl examples development
+
+## Login:
+
+### This will generate an access token
+
+```
+curl -X POST -H "Content-Type: application/json" -d '{"email": "email", "password": "password"}' https://david-dyberg-portfolio-api.vercel.app/auth/login
+```
+
+## Projects:
+
+### Fetch all projects:
+
+```
+curl https://david-dyberg-portfolio-api.vercel.app
+```
+
+### Fetch a single project by id:
+
+```
+curl https://david-dyberg-portfolio-api.vercel.app/YOUR_PROJECT_ID
+```
+
+### Create a project (token required)
+
+```
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
+  "title": "Your title",
+  "description": "Your description"
+}' https://david-dyberg-portfolio-api.vercel.app/api/projects
+```
+
+### Update a project by id (token required)
+
+```
+curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
+  "title": "Updated Project Title",
+  "description": "This is an updated description"
+}' https://david-dyberg-portfolio-api.vercel.app/YOUR_PROJECT_ID
+```
+
+### Delete a project by id (token required)
+
+```
+curl -X DELETE -H "Authorization: Bearer YOUR_BEARER_TOKEN" https://david-dyberg-portfolio-api.vercel.app/YOUR_PROJECT_ID
+```
+
+## About
+
+### Fetch information about me
+
+```
+curl http://localhost:4000/api/about
+```
+
+### Update information about me (token required)
+
+```
+curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
+  "firstName": "Updated name",
+  "lastName": "Updated lastname"
+}' https://david-dyberg-portfolio-api.vercel.app/api/about/USER_ID
+```
+
+### Create new profile
+
+```
+curl -X POST -H "Content-Type: application/json" -d '{
+  "firstName": "Name",
+  "lastName": "Lastname",
+  "email": "email",
+  "password": "password"
+}' https://david-dyberg-portfolio-api.vercel.app/api/about/
+```
+
 # Portfolio REST API - DESIGN
 
 This API manages information for my portfolio, including projects, skills and information about me. It is built using Node.js, Express, TypeScript and MongoDB.
@@ -109,6 +261,7 @@ Each resource supports different HTTP methods depending on access permissions:
 | Method | Endpoint Example | Description                  | Access Control |
 | ------ | ---------------- | ---------------------------- | -------------- |
 | `GET`  | `/api/about`     | Retrieve my personal details | ✅ Public      |
+| `POST` | `/api/about`     | Create a user                | ❌ Restricted  |
 | `PUT`  | `/api/about`     | Update personal details      | ❌ Restricted  |
 
 ---
