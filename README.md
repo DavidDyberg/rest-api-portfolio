@@ -127,7 +127,7 @@ curl -X DELETE -H "Authorization: Bearer YOUR_BEARER_TOKEN" https://david-dyberg
 ### Fetch information about me
 
 ```
-curl http://localhost:4000/api/about
+curl https://david-dyberg-portfolio-api.vercel.app/api/about
 ```
 
 ### Update information about me (token required)
