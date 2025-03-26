@@ -30,7 +30,11 @@ export const login = async (req: Request, res: Response) => {
     res.json({ token, email: user.email });
   } catch (error) {
     if (error instanceof Error) {
-      res.status(500).json({ message: "An error occurred during login." });
+      res.status(500).json({ message: error.message });
+    } else {
+      res
+        .status(500)
+        .json({ message: "An unknown error occurred during login." });
     }
   }
 };
