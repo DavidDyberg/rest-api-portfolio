@@ -10,7 +10,7 @@ Below are the structures for the resources handled by the API.
 
 | Field         | Type          | Description                      |
 | ------------- | ------------- | -------------------------------- |
-| `_id`         | Number        | Project ID                       |
+| `_id`         | String        | Project ID                       |
 | `title`       | String        | Project title (required)         |
 | `description` | String        | Project description (required)   |
 | `techStack`   | Array[String] | Technologies used (optional)     |
@@ -26,7 +26,7 @@ Below are the structures for the resources handled by the API.
 
 | Field          | Type            | Description                 |
 | -------------- | --------------- | --------------------------- |
-| `_id`          | Number          | Primary key                 |
+| `_id`          | String          | Primary key                 |
 | `firstName`    | String          | My first name               |
 | `lastName`     | String          | My last name                |
 | `email`        | String          | My email                    |
@@ -56,7 +56,7 @@ These endpoints return JSON representations of the resources.
 
 ```json
 {
-  "_id": 1,
+  "_id": "67d81701db328e5ebbc4d096",
   "title": "IMBD-CLONE",
   "description": "A website for managing your favourite movies",
   "techStack": ["PHP", "Laravel", "MariaDB"],
@@ -72,7 +72,7 @@ These endpoints return JSON representations of the resources.
 
 ```json
 {
-  "_id": 1,
+  "_id": "67d81701db328e5ebb246556",
   "firstName": "David",
   "lastName": "Dyberg",
   "email": "david@example.com",
