@@ -3,8 +3,14 @@ import { Project } from "../models/projectsModel";
 
 export const getAllProjects = async (req: Request, res: Response) => {
   try {
-    const limit = parseInt(req.query.limit as string) || 0;
-    const projects = await Project.find({}).limit(limit);
+    const { limit, search } = req.query;
+
+    let query = {};
+    if (search) {
+      query = { title: { $regex: search, $options: "i" } };
+    }
+
+    const projects = await Project.find(query).limit(Number(limit) || 0);
     res.json(projects);
   } catch (error) {
     if (error instanceof Error) {
