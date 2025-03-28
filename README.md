@@ -147,7 +147,13 @@ curl https://david-dyberg-portfolio-api.vercel.app/api/projects
 ### Fetch projects with limit:
 
 ```
-curl https://david-dyberg-portfolio-api.vercel.app/api/projects?limit=3
+curl https://david-dyberg-portfolio-api.vercel.app/api/projects?limit={LIMIT}
+```
+
+### Fetch projects with search:
+
+```
+curl https://david-dyberg-portfolio-api.vercel.app/api/projects?search={SEARCH_QUERY}
 ```
 
 ### Fetch a single project by id:
@@ -231,7 +237,13 @@ curl http://localhost:4000/api/projects
 ### Fetch projects with limit:
 
 ```
-curl http://localhost:4000/api/projects?limit=3
+curl http://localhost:4000/api/projects?limit={LIMIT}
+```
+
+### Fetch projects with search:
+
+```
+curl http://localhost:4000/api/projects?search={SEARCH_QUERY}
 ```
 
 ### Fetch a single project by id:
