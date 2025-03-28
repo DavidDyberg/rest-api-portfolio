@@ -144,6 +144,12 @@ curl -X POST -H "Content-Type: application/json" -d '{"email": "email", "passwor
 curl https://david-dyberg-portfolio-api.vercel.app/api/projects
 ```
 
+### Fetch projects with limit:
+
+```
+curl https://david-dyberg-portfolio-api.vercel.app/api/projects?limit=3
+```
+
 ### Fetch a single project by id:
 
 ```
@@ -220,6 +226,12 @@ curl -X POST -H "Content-Type: application/json" -d '{"email": "email", "passwor
 
 ```
 curl http://localhost:4000/api/projects
+```
+
+### Fetch projects with limit:
+
+```
+curl http://localhost:4000/api/projects?limit=3
 ```
 
 ### Fetch a single project by id:
