@@ -10,4 +10,4 @@ export const userRouter = Router();
 
 userRouter.get("/about", getUser);
 userRouter.post("/about", authMiddleware, createUser);
-userRouter.put("/about/:id", authMiddleware, updateUser);
+userRouter.put("/about/:id", updateUser);

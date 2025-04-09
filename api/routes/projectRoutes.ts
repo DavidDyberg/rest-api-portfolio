@@ -12,6 +12,6 @@ export const projectRouter = Router();
 
 projectRouter.get("/projects", getAllProjects);
 projectRouter.get("/projects/:id", getProjectById);
-projectRouter.post("/projects", authMiddleware, createProject);
-projectRouter.put("/projects/:id", authMiddleware, updateProject);
-projectRouter.delete("/projects/:id", authMiddleware, deleteProject);
+projectRouter.post("/projects", createProject);
+projectRouter.put("/projects/:id", updateProject);
+projectRouter.delete("/projects/:id", deleteProject);
